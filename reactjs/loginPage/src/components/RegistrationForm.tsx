@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import bg from "../assets/bg.png";
+import bg from "../assets/5091624-hd_1920_1080_24fps.mp4"; // Path to your video
 
 const RegistrationForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -27,11 +27,22 @@ const RegistrationForm: React.FC = () => {
   };
 
   return (
-    <div
-      className="min-h-screen flex w-screen items-center justify-center bg-gray-800"
-      style={{ backgroundImage: `url(${bg})` }}
-    >
-      <div className="w-screen min-h-screen flex items-center justify-center bg-transparent backdrop-blur-sm">
+    <div className="relative w-full min-h-screen">
+      {/* Background Video */}
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        autoPlay
+        loop
+        muted
+      >
+        <source src={bg} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Overlay to apply backdrop blur and gradient */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm z-10"></div>
+
+      <div className="w-screen min-h-screen flex items-center justify-center bg-transparent backdrop-blur-sm relative z-20">
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 1, y: 0 }}
@@ -40,19 +51,18 @@ const RegistrationForm: React.FC = () => {
               ? {
                   opacity: 0,
                   scale: 0,
-                  transition: { duration: 1, ease: "easeInOut" , delay: 0.1},
+                  transition: { duration: 1, ease: "easeInOut", delay: 0.1 },
                 }
               : { opacity: 1, scale: 1 }
           }
           transition={{ duration: 0.5 }}
-          className="max-w-sm mx-auto mt-10 p-6 rounded-lg bg-transparent border shadow-white backdrop-blur-xl overflow-hidden"
+          className="max-w-sm mx-auto mt-10 p-6 rounded-lg bg-transparent border shadow-white backdrop-blur-xl overflow-hidden sm:max-w-md md:max-w-lg lg:max-w-xl"
         >
-          {/* Explosion effect: Animating the elements as they explode */}
           <motion.h2
-            className="text-2xl font-bold mb-4"
+            className="text-2xl font-bold text-white mb-4"
             initial={{ scale: 0.8 }}
             animate={isSubmitted ? { x: [-50, 50], opacity: 0 } : { scale: 1 }}
-            transition={{ duration: 0.5 , ease: "easeInOut", delay: 0.1 }}
+            transition={{ duration: 0.5, ease: "easeInOut", delay: 0.1 }}
           >
             Register
           </motion.h2>
@@ -61,7 +71,7 @@ const RegistrationForm: React.FC = () => {
               className="text-red-500"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, ease: "easeInOut" , delay: 0.1}}
+              transition={{ duration: 0.5, ease: "easeInOut", delay: 0.1 }}
             >
               {error}
             </motion.div>
@@ -72,7 +82,6 @@ const RegistrationForm: React.FC = () => {
             value={formData.name}
             onChange={handleChange}
             placeholder="Name"
-            whileFocus={{ scale: 1.05 }}
             className="w-full mb-4 p-2 border rounded"
             required
             animate={
@@ -88,7 +97,6 @@ const RegistrationForm: React.FC = () => {
             value={formData.dateOfBirth}
             onChange={handleChange}
             placeholder="Date of Birth"
-            whileFocus={{ scale: 1.05 }}
             className="w-full mb-4 p-2 border rounded"
             required
             animate={
@@ -96,7 +104,7 @@ const RegistrationForm: React.FC = () => {
                 ? { x: [100, -100], opacity: 0, scale: 1.5 }
                 : { opacity: 1, scale: 1 }
             }
-            transition={{ duration: 0.7, ease: "easeOut" , delay  : 0.1}}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
           />
           <motion.input
             type="email"
@@ -104,7 +112,6 @@ const RegistrationForm: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             placeholder="Email"
-            whileFocus={{ scale: 1.05 }}
             className="w-full mb-4 p-2 border rounded"
             required
             animate={
@@ -112,7 +119,7 @@ const RegistrationForm: React.FC = () => {
                 ? { x: [-100, 100], opacity: 0, scale: 1.5 }
                 : { opacity: 1, scale: 1 }
             }
-            transition={{ duration: 0.7, ease: "easeOut" , delay: 0.1}}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
           />
           <motion.input
             type="password"
@@ -120,7 +127,6 @@ const RegistrationForm: React.FC = () => {
             value={formData.password}
             onChange={handleChange}
             placeholder="Password"
-            whileFocus={{ scale: 1.05 }}
             className="w-full mb-4 p-2 border rounded"
             required
             animate={
@@ -128,7 +134,7 @@ const RegistrationForm: React.FC = () => {
                 ? { x: [100, -100], opacity: 0, scale: 1.5 }
                 : { opacity: 1, scale: 1 }
             }
-            transition={{ duration: 0.7, ease: "easeOut" ,delay: 0.1 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
           />
           <motion.button
             type="submit"
@@ -140,7 +146,7 @@ const RegistrationForm: React.FC = () => {
                 ? { scale: 2, opacity: 0, rotate: 45 }
                 : { opacity: 1, scale: 1 }
             }
-            transition={{ duration: 0.5 , ease: "easeInOut" , delay: 0.2}}
+            transition={{ duration: 0.5, ease: "easeInOut", delay: 0.2 }}
           >
             Register
           </motion.button>
