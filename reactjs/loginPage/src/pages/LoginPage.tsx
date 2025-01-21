@@ -1,26 +1,28 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import LoginForm from '../components/LoginForm';
+import React from "react";
+import { AuthForm } from "../components/AuthForm";
+import { LoginFormData } from "../types/AuthForm";
+import { Link } from "react-router-dom";
 
-const LoginPage: React.FC = () => {
+export const LoginPage: React.FC = () => {
+  const handleLogin = (data: LoginFormData) => {
+    console.log("Login Data:", data);
+  };
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -50 }}
-      transition={{ duration: 0.5, ease: 'easeInOut' }}
-      className="min-h-screen flex flex-col items-center justify-center bg-gray-100"
-    >
-      <motion.div
-        initial={{ scale: 0.9 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
-      >
-        <LoginForm />
-      </motion.div>
+    <div className="flex flex-col items-center justify-center min-h-screen w-screen">
+      <div className="w-1/4 max-w-xl  p-6 bg-white shadow-lg  rounded-lg">
+        <AuthForm<LoginFormData>
+          title="Login"
+          onSubmit={handleLogin}
+        />
+      </div>
 
-    </motion.div>
+      <div className="mt-6 text-sm text-gray-600">
+        <span>Don't have an account? </span>
+        <Link to="/register" className="text-blue-500 hover:underline">
+          Sign up
+        </Link>
+      </div>
+    </div>
   );
 };
-
-export default LoginPage;
